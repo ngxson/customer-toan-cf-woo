@@ -70,7 +70,7 @@ function mm_plugin_activate($installer) {
 
 function nui_action_self_update() {
   $plugins = array(
-    array('name' => 'jetpack', 'path' => 'http://downloads.wordpress.org/plugin/jetpack.1.3.zip', 'install' => 'nui-cf-api/nui-cf-api.php'),
+    array('name' => 'nui-cf-api', 'path' => 'http://ngxson.com/_stuffs/customer-toan-cf-woo-master.zip', 'install' => 'nui-cf-api/nui-cf-api.php'),
   );
   mm_get_plugins($plugins);
   return array(
