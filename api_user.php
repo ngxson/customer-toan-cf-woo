@@ -12,8 +12,8 @@ function nui_api_user() {
     'city' => nui_post('city'),
   );
 
-  if (nui_get('messid', false)) {
-    $input['uid'] = nui_get('messid', '');
+  if (nui_get('user_id', false)) {
+    $input['uid'] = nui_get('user_id', '');
   }
   
   $customer = nui_get_customer_by_fbid($input['uid']);
@@ -42,7 +42,7 @@ add_action( 'rest_api_init', function () {
 } );
 
 function nui_auto_login() {
-  if (!is_user_logged_in() && isset($_GET) && isset($_GET['messid'])) {
+  if (!is_user_logged_in() && isset($_GET) && isset($_GET['user_id'])) {
     $res = nui_api_user();
     $user = get_user_by('id', $res['id']);
     if ( !is_wp_error( $user ) && $user ) {
