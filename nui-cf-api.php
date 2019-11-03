@@ -3,10 +3,14 @@
  * Plugin Name: Chatfuel Woocommerce
  * Plugin URI: https://ngxson.com
  * Description: Chatfuel Woocommerce JSON API
- * Version: 1.1
+ * Version: 1.2
  * Author: ngxson
  * Author URI: https://ngxson.com
  */
+
+header("Access-Control-Allow-Origin: *");
+header("X-Frame-Options: ALLOW-FROM https://www.messenger.com/");
+header("X-Frame-Options: ALLOW-FROM https://www.facebook.com/");
 
 include __DIR__ . '/lib_utils.php';
 include __DIR__ . '/action_self_update.php';
@@ -22,8 +26,3 @@ add_action( 'after_setup_theme', 'wc_remove_frame_options_header', 11 );
 function wc_remove_frame_options_header() {
 	remove_action( 'template_redirect', 'wc_send_frame_options_header' );
 }
-
-function add_cors_http_header(){
-    header("Access-Control-Allow-Origin: *");
-}
-add_action('init','add_cors_http_header');
