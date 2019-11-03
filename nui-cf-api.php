@@ -3,7 +3,7 @@
  * Plugin Name: Chatfuel Woocommerce
  * Plugin URI: https://ngxson.com
  * Description: Chatfuel Woocommerce JSON API
- * Version: 1.0
+ * Version: 1.1
  * Author: ngxson
  * Author URI: https://ngxson.com
  */
