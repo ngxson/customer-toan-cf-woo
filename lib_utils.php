@@ -22,7 +22,7 @@ function nui_f($number) {
   return number_format($number, 0, ',', '.');
 }
 
-function nui_post($name) {
+function nui_post($name, $def = false) {
   return isset($_POST[$name]) && $_POST[$name] !== ''
-    ? $_POST[$name] : false;
+    ? $_POST[$name] : $def;
 }
