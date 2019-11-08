@@ -18,10 +18,12 @@ function nui_api_user() {
   
   $customer = nui_get_customer_by_fbid($input['uid']);
   if ($input['first_name']) $customer->set_first_name($input['first_name']);
+  if ($input['first_name']) $customer->set_billing_first_name($input['first_name']);
   if ($input['last_name']) $customer->set_last_name($input['last_name']);
+  if ($input['last_name']) $customer->set_billing_last_name($input['last_name']);
   if ($input['full_name']) $customer->set_display_name($input['full_name']);
   if ($input['phone']) $customer->set_billing_phone($input['phone']);
-  if ($input['email']) $customer->set_billing_phone($input['email']);
+  if ($input['email']) $customer->set_billing_email($input['email']);
   if ($input['address']) $customer->set_billing_address($input['address']);
   if ($input['city']) $customer->set_billing_city($input['city']);
   $customer->set_billing_postcode('100000');
@@ -42,14 +44,29 @@ add_action( 'rest_api_init', function () {
 } );
 
 function nui_auto_login() {
-  if (!is_user_logged_in() && isset($_GET) && isset($_GET['user_id'])) {
+  if (nui_is_need_to_login()) {
     $res = nui_api_user();
     $user = get_user_by('id', $res['id']);
+    echo $user->user_login;
     if ( !is_wp_error( $user ) && $user ) {
         wp_clear_auth_cookie();
         wp_set_current_user ( $user->ID );
         wp_set_auth_cookie  ( $user->ID, true );
     }
+  }
+}
+
+function nui_is_need_to_login() {
+  if (isset($_GET) && isset($_GET['user_id'])) {
+    if (!is_user_logged_in()) {
+      return true;
+    } else {
+      $user = wp_get_current_user();
+      $fbid = 'fb'.$_GET['user_id'];
+      return $user->user_login !== $fbid;
+    }
+  } else {
+    return false;
   }
 }
 
